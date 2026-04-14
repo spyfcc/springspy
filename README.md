@@ -38,7 +38,7 @@ SpringSpy captures request/response traffic, stores it (memory + file), and prov
 <dependency>
     <groupId>io.github.spyfcc</groupId>
     <artifactId>spyfcc-starter3</artifactId>
-    <version>0.1.0-beta</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -48,7 +48,7 @@ SpringSpy captures request/response traffic, stores it (memory + file), and prov
 <dependency>
     <groupId>io.github.spyfcc</groupId>
     <artifactId>spyfcc-starter2</artifactId>
-    <version>0.1.0-beta</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -93,7 +93,7 @@ traffic.spy.security.password=spy123
 
 - starter2 → uses javax
 - starter3 → uses jakarta
-- This project is currently beta
+
 
 ---
 
