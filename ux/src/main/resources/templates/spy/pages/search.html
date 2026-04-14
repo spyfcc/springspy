@@ -1,0 +1,333 @@
+<th:block th:fragment="content">
+
+	<!-- TOGGLE BUTTON -->
+	<div class="mb-3">
+		<button class="btn btn-outline-info" type="button"
+			data-bs-toggle="collapse" data-bs-target="#searchPanel"
+			aria-expanded="true" aria-controls="searchPanel">
+			<i class="bi bi-funnel me-1"></i> Filters Show / Hide
+		</button>
+	</div>
+
+	<!-- SEARCH PANEL -->
+	<div class="collapse show" id="searchPanel">
+		<div class="card bg-dark border-secondary shadow-sm mb-4">
+			<div class="card-header bg-dark text-light border-secondary">
+				<h5 class="mb-0">
+					<i class="bi bi-search me-2"></i>Log Search
+				</h5>
+			</div>
+
+			<div class="card-body">
+				<form th:action="${trafficSpyUiPath + '/search'}" method="get">
+					<input type="hidden" name="page" value="0">
+
+					<div class="row g-3">
+
+    <div class="col-md-3">
+        <label for="fromDate" class="form-label text-light">Start Date</label>
+        <input type="date"
+               id="fromDate"
+               name="fromDate"
+               class="form-control bg-dark text-light border-secondary"
+               th:value="${request != null && request.fromDate != null ? request.fromDate : ''}">
+        <small class="text-secondary">Uses your browser's date format</small>
+    </div>
+
+    <div class="col-md-3">
+        <label for="toDate" class="form-label text-light">End Date</label>
+        <input type="date"
+               id="toDate"
+               name="toDate"
+               class="form-control bg-dark text-light border-secondary"
+               th:value="${request != null && request.toDate != null ? request.toDate : ''}">
+        <small class="text-secondary">Uses your browser's date format</small>
+    </div>
+
+						<div class="col-md-4">
+							<label class="form-label text-light">Method</label> <select
+								name="method"
+								class="form-select bg-dark text-light border-secondary">
+								<option value="">All</option>
+								<option value="GET"
+									th:selected="${searchRequest.method == 'GET'}">GET</option>
+								<option value="POST"
+									th:selected="${searchRequest.method == 'POST'}">POST</option>
+								<option value="PUT"
+									th:selected="${searchRequest.method == 'PUT'}">PUT</option>
+								<option value="DELETE"
+									th:selected="${searchRequest.method == 'DELETE'}">DELETE</option>
+							</select>
+						</div>
+
+						<div class="col-md-4">
+							<label class="form-label text-light">Status</label> <input
+								type="number" name="status"
+								class="form-control bg-dark text-light border-secondary"
+								th:value="${searchRequest.status}">
+						</div>
+
+						<div class="col-md-4">
+							<label class="form-label text-light">URI</label> <input
+								type="text" name="uri"
+								class="form-control bg-dark text-light border-secondary"
+								th:value="${searchRequest.uri}">
+						</div>
+
+						<div class="col-md-4">
+							<label class="form-label text-light">Search Text</label> <input
+								type="text" name="text"
+								class="form-control bg-dark text-light border-secondary"
+								th:value="${searchRequest.text}">
+						</div>
+
+						<div class="col-md-6">
+							<label class="form-label text-light">Request Body</label> <input
+								type="text" name="requestBody"
+								class="form-control bg-dark text-light border-secondary"
+								th:value="${searchRequest.requestBody}">
+						</div>
+
+						<div class="col-md-6">
+							<label class="form-label text-light">Response Body</label> <input
+								type="text" name="responseBody"
+								class="form-control bg-dark text-light border-secondary"
+								th:value="${searchRequest.responseBody}">
+						</div>
+
+						<div class="col-12 d-flex gap-2 flex-wrap">
+							<button type="submit" class="btn btn-info">
+								<i class="bi bi-search me-1"></i>Search
+							</button>
+
+							<a th:href="${trafficSpyUiPath + '/search'}"
+								class="btn btn-outline-light"> Clean </a>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="card bg-dark border-secondary shadow-sm">
+		<div
+			class="card-header d-flex justify-content-between align-items-center text-light flex-wrap gap-2">
+			<span><i class="bi bi-table me-2"></i>Records</span> <span
+				class="badge bg-info text-dark"
+				th:text="${result != null ? 'Total: ' + result.totalElements : 'Total: 0'}">
+				Total: 0 </span>
+		</div>
+
+		<div class="card-body p-0">
+			<div class="table-responsive">
+				<table
+					class="table table-dark table-hover table-bordered align-middle mb-0">
+					<thead>
+						<tr>
+							<th>DateTime</th>
+							<th>Method</th>
+							<th>URI</th>
+							<th>Status</th>
+							<th>Duration</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+						<tr th:if="${result == null}">
+							<td colspan="6" class="text-center text-secondary py-4">
+								Enter filters and click Search.</td>
+						</tr>
+
+						<th:block th:if="${result != null}">
+							<tr
+								th:if="${result.content == null or #lists.isEmpty(result.content)}">
+								<td colspan="6" class="text-center text-secondary py-4">No
+									Records</td>
+							</tr>
+
+							<th:block th:each="log, iter : ${result.content}">
+								<tr>
+									<td th:text="${log.timestamp}"></td>
+
+									<td><span class="badge"
+										th:classappend="${log.method == 'GET'} ? ' bg-success' :
+                                                          (${log.method == 'POST'} ? ' bg-primary' :
+                                                          (${log.method == 'PUT'} ? ' bg-warning text-dark' :
+                                                          (${log.method == 'DELETE'} ? ' bg-danger' : ' bg-secondary')))"
+										th:text="${log.method}"> </span></td>
+
+									<td class="text-break" style="word-break: break-word;"
+										th:text="${log.uri}"></td>
+
+									<td><span class="badge"
+										th:classappend="${log.status >= 200 and log.status < 300} ? ' bg-success' :
+                                                          (${log.status >= 400 and log.status < 500} ? ' bg-warning text-dark' :
+                                                          (${log.status >= 500} ? ' bg-danger' : ' bg-secondary'))"
+										th:text="${log.status}"> </span></td>
+
+									<td th:text="${log.duration} + ' ms'"></td>
+
+									<td class="text-center">
+										<button type="button"
+											class="btn btn-outline-info btn-sm toggle-detail-btn"
+											th:attr="data-target='search-detail-' + ${iter.index}">
+											<i class="bi bi-eye"></i> Details
+										</button>
+									</td>
+								</tr>
+
+								<tr th:id="'search-detail-' + ${iter.index}" class="d-none">
+									<td colspan="6" class="p-0">
+										<div class="bg-black border-top border-secondary p-3">
+											<div class="row g-3">
+
+												<div class="col-md-6">
+													<label class="form-label text-secondary small">Full
+														URL</label>
+													<div
+														class="form-control bg-dark text-light border-secondary text-break"
+														th:text="${log.fullUrl != null ? log.fullUrl : '-'}"></div>
+												</div>
+
+												<div class="col-md-6">
+													<label class="form-label text-secondary small">Client
+														IP</label>
+													<div
+														class="form-control bg-dark text-light border-secondary"
+														th:text="${log.clientIp != null ? log.clientIp : '-'}"></div>
+												</div>
+
+												<div class="col-md-6">
+													<label class="form-label text-secondary small">Form
+														Params</label>
+													<pre
+														class="form-control bg-dark text-light border-secondary mb-0"
+														style="white-space: pre-wrap; min-height: 120px;"
+														th:text="${log.formParams != null ? log.formParams : '-'}"></pre>
+												</div>
+
+												<div class="col-md-6">
+													<label class="form-label text-secondary small">Headers</label>
+													<pre
+														class="form-control bg-dark text-light border-secondary mb-0"
+														style="white-space: pre-wrap; min-height: 120px;"
+														th:text="${log.headers != null ? log.headers : '-'}"></pre>
+												</div>
+
+												<div class="col-md-6">
+													<label class="form-label text-secondary small">Request
+														Body</label>
+													<pre
+														class="form-control bg-dark text-light border-secondary mb-0"
+														style="white-space: pre-wrap; min-height: 160px; max-height: 320px; overflow: auto;"
+														th:text="${log.requestBody != null ? log.requestBody : '-'}"></pre>
+												</div>
+
+												<div class="col-md-6">
+													<label class="form-label text-secondary small">Response
+														Body</label>
+													<pre
+														class="form-control bg-dark text-light border-secondary mb-0"
+														style="white-space: pre-wrap; min-height: 160px; max-height: 320px; overflow: auto;"
+														th:text="${log.responseBody != null ? log.responseBody : '-'}"></pre>
+												</div>
+
+											</div>
+										</div>
+									</td>
+								</tr>
+							</th:block>
+						</th:block>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div
+			class="card-footer bg-dark border-top border-secondary d-flex justify-content-between align-items-center flex-wrap gap-2"
+			th:if="${result != null and result.content != null and !#lists.isEmpty(result.content)}">
+
+			<small class="text-secondary"
+				th:text="${'Sayfa: ' + (result.page + 1)}"> Page: 1 </small>
+
+			<div class="d-flex gap-2">
+
+				<form th:action="${trafficSpyUiPath + '/search'}" method="get"
+					class="mb-0">
+					<input type="hidden" name="page" th:value="${result.page - 1}">
+					<input type="hidden" name="fromDate"
+						th:value="${searchRequest.fromDate}"> <input type="hidden"
+						name="toDate" th:value="${searchRequest.toDate}"> <input
+						type="hidden" name="method" th:value="${searchRequest.method}">
+					<input type="hidden" name="status"
+						th:value="${searchRequest.status}"> <input type="hidden"
+						name="uri" th:value="${searchRequest.uri}"> <input
+						type="hidden" name="text" th:value="${searchRequest.text}">
+					<input type="hidden" name="requestBody"
+						th:value="${searchRequest.requestBody}"> <input
+						type="hidden" name="responseBody"
+						th:value="${searchRequest.responseBody}">
+
+					<button type="submit" class="btn btn-outline-light btn-sm"
+						th:disabled="${result.page == 0}">← Prev</button>
+				</form>
+
+				<form th:action="${trafficSpyUiPath + '/search'}" method="get"
+					class="mb-0">
+					<input type="hidden" name="page"
+						th:value="${searchRequest.page + 1}"> <input type="hidden"
+						name="fromDate" th:value="${searchRequest.fromDate}"> <input
+						type="hidden" name="toDate" th:value="${searchRequest.toDate}">
+					<input type="hidden" name="method"
+						th:value="${searchRequest.method}"> <input type="hidden"
+						name="status" th:value="${searchRequest.status}"> <input
+						type="hidden" name="uri" th:value="${searchRequest.uri}">
+					<input type="hidden" name="text" th:value="${searchRequest.text}">
+					<input type="hidden" name="requestBody"
+						th:value="${searchRequest.requestBody}"> <input
+						type="hidden" name="responseBody"
+						th:value="${searchRequest.responseBody}">
+
+					<button type="submit" class="btn btn-outline-info btn-sm"
+						th:disabled="${!result.hasNext}">Next →</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		(function() {
+			document
+					.addEventListener(
+							"click",
+							function(e) {
+								const button = e.target
+										.closest(".toggle-detail-btn");
+								if (!button)
+									return;
+
+								const targetId = button
+										.getAttribute("data-target");
+								const detailRow = document
+										.getElementById(targetId);
+								if (!detailRow)
+									return;
+
+								detailRow.classList.toggle("d-none");
+
+								const isOpen = !detailRow.classList
+										.contains("d-none");
+								button.innerHTML = isOpen ? '<i class="bi bi-eye-slash"></i> Hide'
+										: '<i class="bi bi-eye"></i> Details';
+							});
+		})();
+	</script>
+
+</th:block>

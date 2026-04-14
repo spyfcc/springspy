@@ -1,0 +1,6 @@
+(function() {
+	function copyToClipboard(text) {
+		if (!text) return; if (navigator.clipboard) { return navigator.clipboard.writeText(text); }
+		return new Promise((resolve, reject) => { try { const textArea = document.createElement("textarea"); textArea.value = text; textArea.style.position = "fixed"; textArea.style.opacity = "0"; document.body.appendChild(textArea); textArea.focus(); textArea.select(); document.execCommand("copy"); document.body.removeChild(textArea); resolve(); } catch (err) { reject(err); } });
+	} function handleCopyClick(e) { const button = e.target.closest("[data-copy-target]"); if (!button) return; const targetId = button.getAttribute("data-copy-target"); const targetEl = document.getElementById(targetId); if (!targetEl) { console.warn("Copy target not found:", targetId); return; } const text = targetEl.innerText || targetEl.textContent || ""; copyToClipboard(text).then(() => { const originalHtml = button.innerHTML; button.innerHTML = '<i class="bi bi-check-lg"></i>'; button.classList.remove("btn-outline-light"); button.classList.add("btn-success"); setTimeout(() => { button.innerHTML = originalHtml; button.classList.remove("btn-success"); button.classList.add("btn-outline-light"); }, 1200); }).catch(err => { console.error("Copy failed:", err); }); } document.addEventListener("click", handleCopyClick);
+})();

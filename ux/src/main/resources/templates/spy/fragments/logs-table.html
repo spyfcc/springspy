@@ -1,0 +1,220 @@
+<th:block th:fragment="table">
+
+    <div class="card bg-dark border-secondary shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
+            <span class="fw-bold">
+                <i class="bi bi-list-ul me-2"></i>Request Logs
+            </span>
+            <span class="badge bg-info text-dark"
+                  th:text="${#lists.size(events)} + ' record'">0 record</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-hover table-bordered align-middle mb-0"
+                   style="table-layout: fixed; width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 18%;">DateTime</th>
+                        <th style="width: 10%;">Method</th>
+                        <th style="width: 32%;">URI</th>
+                        <th style="width: 12%;">Duration</th>
+                        <th style="width: 10%;">Status</th>
+                        <th style="width: 8%;" class="text-center">Details</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <th:block th:each="log, stat : ${events}">
+
+                        <tr>
+                            <td class="text-light small"
+                                style="word-break: break-word;"
+                                th:text="${log.timestamp}">
+                                2026-03-30T14:30:28
+                            </td>
+
+                            <td>
+                                <span class="badge"
+                                      th:classappend="${log.method == 'GET'} ? ' bg-success' :
+                                                      (${log.method == 'POST'} ? ' bg-primary' :
+                                                      (${log.method == 'PUT'} ? ' bg-warning text-dark' :
+                                                      (${log.method == 'DELETE'} ? ' bg-danger' : ' bg-secondary')))"
+                                      th:text="${log.method}">
+                                    GET
+                                </span>
+                            </td>
+
+                            <td class="text-light small text-break"
+                                style="word-break: break-word; overflow-wrap: anywhere;"
+                                th:text="${log.uri}">
+                                /app/test
+                            </td>
+
+                            <td class="text-light small">
+                                <span th:if="${log.duration != null}"
+                                      th:text="${log.duration} + ' ms'">2 ms</span>
+                                <span th:if="${log.duration == null}">-</span>
+                            </td>
+
+                            <td>
+                                <span class="badge"
+                                      th:classappend="${log.status != null and log.status >= 200 and log.status < 300} ? ' bg-success' :
+                                                      (${log.status != null and log.status >= 400 and log.status < 500} ? ' bg-warning text-dark' :
+                                                      (${log.status != null and log.status >= 500} ? ' bg-danger' : ' bg-secondary'))"
+                                      th:text="${log.status}">
+                                    200
+                                </span>
+                            </td>
+
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-info"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        th:attr="data-bs-target='#detail-' + ${stat.index},aria-controls='detail-' + ${stat.index}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6" class="p-0 border-0 bg-dark">
+                                <div class="collapse" th:id="'detail-' + ${stat.index}">
+                                    <div class="p-3 border-top border-secondary bg-black text-light overflow-auto">
+
+                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                            <span class="badge text-bg-secondary">
+                                                Content-Type:
+                                                <span th:text="${log.contentType != null and !#strings.isEmpty(log.contentType) ? log.contentType : '-'}">-</span>
+                                            </span>
+
+                                            <span class="badge text-bg-secondary">
+                                                Client IP:
+                                                <span th:text="${log.clientIp != null and !#strings.isEmpty(log.clientIp) ? log.clientIp : '-'}">-</span>
+                                            </span>
+
+                                            <span class="badge text-bg-secondary">
+                                                Username:
+                                                <span th:text="${log.username != null and !#strings.isEmpty(log.username) ? log.username : '-'}">-</span>
+                                            </span>
+                                        </div>
+
+                                        <div class="row g-3 overflow-hidden">
+
+                                            <div class="col-md-6">
+                                                <div class="card bg-dark border-secondary h-100">
+                                                    <div class="card-header text-light bg-dark border-secondary fw-semibold">
+                                                        Query Params
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre class="mb-0 p-2 bg-black border border-secondary rounded text-light small"
+                                                             style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;"
+                                                             th:text="${log.queryParams != null and !#strings.isEmpty(log.queryParams) ? log.queryParams : '-'}">-</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="card bg-dark border-secondary h-100">
+                                                    <div class="card-header text-light bg-dark border-secondary fw-semibold">
+                                                        Form Params
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre class="mb-0 p-2 bg-black border border-secondary rounded text-light small"
+                                                             style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;"
+                                                             th:text="${log.formParams != null and !#strings.isEmpty(log.formParams) ? log.formParams : '-'}">-</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="card bg-dark border-secondary">
+                                                    <div class="card-header bg-dark border-secondary d-flex justify-content-between align-items-center text-light fw-semibold">
+                                                        <span>Request Body</span>
+                                                        <button class="btn btn-sm btn-outline-light"
+                                                                type="button"
+                                                                th:attr="data-copy-target='request-body-' + ${stat.index}">
+                                                            Copy
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre class="mb-0 p-2 bg-black border border-secondary rounded text-light small"
+                                                             style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;"
+                                                             th:id="'request-body-' + ${stat.index}"
+                                                             th:text="${log.requestBody != null and !#strings.isEmpty(log.requestBody) ? log.requestBody : '-'}">-</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="card bg-dark border-secondary">
+                                                    <div class="card-header text-light bg-dark border-secondary fw-semibold">
+                                                        Headers
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre class="mb-0 p-2 bg-black border border-secondary rounded text-light small"
+                                                             style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;"
+                                                             th:text="${log.headers != null ? log.headers : '-'}">-</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="card bg-dark border-secondary">
+                                                    <div class="card-header bg-dark border-secondary d-flex justify-content-between align-items-center text-light fw-semibold">
+                                                        <span>Response Body</span>
+                                                        <button class="btn btn-sm btn-outline-light"
+                                                                type="button"
+                                                                th:attr="data-copy-target='response-body-' + ${stat.index}">
+                                                            Copy
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre class="mb-0 p-2 bg-black border border-secondary rounded text-light small"
+                                                             style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;"
+                                                             th:id="'response-body-' + ${stat.index}"
+                                                             th:text="${log.responseBody != null and !#strings.isEmpty(log.responseBody) ? log.responseBody : '-'}">-</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="card bg-dark border-secondary">
+                                                    <div class="card-header bg-dark border-secondary d-flex justify-content-between align-items-center text-light fw-semibold">
+                                                        <span>cURL</span>
+                                                        <button class="btn btn-sm btn-outline-light"
+                                                                type="button"
+                                                                th:attr="data-copy-target='curl-command-' + ${stat.index}">
+                                                            Copy
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <pre class="mb-0 p-2 bg-black border border-secondary rounded text-light small"
+                                                             style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;"
+                                                             th:id="'curl-command-' + ${stat.index}"
+                                                             th:text="${'curl --location --request '
+                                                                + (log.method != null ? log.method : 'GET')
+                                                                + ' ''http://localhost:8080'
+                                                                + (log.uri != null ? log.uri : '')
+                                                                + (log.queryParams != null and !#strings.isEmpty(log.queryParams) ? '?' + log.queryParams : '')
+                                                                + ''''
+                                                                + (log.contentType != null and !#strings.isEmpty(log.contentType) ? ' \\' + '&#10;' + '--header ''Content-Type: ' + log.contentType + '''' : '')
+                                                                + (log.requestBody != null and !#strings.isEmpty(log.requestBody) and log.requestBody != '-' ? ' \\' + '&#10;' + '--data-raw ''' + log.requestBody + '''' : '')}">
+                                                        </pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</th:block>

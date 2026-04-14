@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Spy Login</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background: #111;
+	color: #eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.login-container {
+	background: #1a1a1a;
+	padding: 30px 40px;
+	border-radius: 10px;
+	width: 350px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	border: 1px solid #333;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+label {
+	font-size: 14px;
+	margin-bottom: 5px;
+	display: block;
+	color: #ccc;
+}
+
+input {
+	width: 100%;
+	padding: 10px;
+	background: #222;
+	border: 1px solid #444;
+	border-radius: 6px;
+	color: #eee;
+	font-size: 14px;
+	margin-bottom: 15px;
+}
+
+input:focus {
+	outline: none;
+	border-color: #00d084;
+}
+
+button {
+	width: 100%;
+	padding: 12px;
+	background: #00d084;
+	border: none;
+	border-radius: 6px;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	color: #111;
+}
+
+button:hover {
+	background: #03c076;
+}
+
+.error-msg {
+	color: #ff5555;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.logout-msg {
+	color: #00d084;
+	text-align: center;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+	<div class="login-container">
+		<h2>🔐 Spy Traffic Login</h2>
+		<form th:action="${trafficSpyUiPath + '/login'}" method="post">
+			<label>User Name:</label> <input type="text" name="username" required />
+			<label>Password:</label> <input type="password" name="password"
+				required />
+			<button type="submit">Login</button>
+		</form>
+		<div class="error-msg" th:if="${param.error}">❌ Bad login param
+		</div>
+		<div class="logout-msg" th:if="${param.logout}">✔ success logout
+		</div>
+	</div>
+</body>
+</html>

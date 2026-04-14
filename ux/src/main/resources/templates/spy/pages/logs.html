@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<th:block th:fragment="content">
+		<th:block th:replace="~{spy/fragments/top-dashboard :: dashboard}"></th:block>
+		<br>
+		<section class="table-section">
+			<div id="logTableContainer">
+				<th:block th:replace="~{spy/fragments/logs-table :: table}"></th:block>
+			</div>
+		</section>
+		<script th:inline="javascript">
+			window.spyConfig = {
+				uiPath : /*[[${trafficSpyUiPath}]]*/''
+			};
+		</script>
+		<script th:src="${trafficSpyUiPath + '/static/js/spy-dashboard.js'}"></script>
+	</th:block>
+</body>
+</html>

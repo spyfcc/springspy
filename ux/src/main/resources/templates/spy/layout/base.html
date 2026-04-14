@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${pageTitle} ?: 'Spy'">Spy</title>
+
+
+<link rel="stylesheet"	th:href="${trafficSpyUiPath + '/static/css/bootstrap.min.css'}">
+<link rel="stylesheet"	th:href="${trafficSpyUiPath + '/static/css/bootstrap-icons.css'}">
+</head>
+<body class="bg-dark text-light">
+	<div>
+		<th:block th:replace="~{spy/fragments/header :: header}"></th:block>
+	</div>
+	<br>
+	<div class="container-fluid py-4">
+		<th:block th:replace="~{${contentPage} :: content}"></th:block>
+	</div>
+	<script th:src="${trafficSpyUiPath + '/static/js/bootstrap.bundle.min.js'}"></script>
+	<script th:src="${trafficSpyUiPath + '/static/js/spy-copy.js'}"></script>
+
+</body>
+</html>
