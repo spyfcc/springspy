@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0-beta] - 2026-04-12
+## [1.0.0] - 2026-04-12
 
 ### Added
 - Core traffic event model
