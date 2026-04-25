@@ -79,6 +79,14 @@ button:hover {
 	text-align: center;
 	margin-top: 10px;
 }
+
+.version {
+	text-align: center;
+	margin-top: 15px;
+	font-size: 12px;
+	color: #00d084;
+	text-shadow: 0 0 5px #00d084;
+}
 </style>
 </head>
 <body>
@@ -94,6 +102,9 @@ button:hover {
 		</div>
 		<div class="logout-msg" th:if="${param.logout}">✔ success logout
 		</div>
+		<div class="version">
+    v<span th:text="${spyVersion}"></span>
+</div>
 	</div>
 </body>
 </html>
