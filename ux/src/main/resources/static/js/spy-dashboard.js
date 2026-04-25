@@ -77,7 +77,43 @@
 	        });
 	    });
 	}
-	
+	async function clearMemoryStore() {
+		const btn = document.getElementById("clearMemoryBtn");
+		const lastClearedEl = document.getElementById("lastCleared");
+
+		btn.disabled = true;
+		btn.innerHTML = '<i class="bi bi-hourglass"></i>';
+
+		try {
+			const response = await fetch(uiPath + "/logs/clear", {
+				method: "POST"
+			});
+
+			if (!response.ok) {
+				alert("Memory store was not cleared");
+				return;
+			}
+
+			// ✅ backend'den gelen timestamp
+			const timestamp = await response.json();
+
+			const date = new Date(timestamp);
+
+			if (lastClearedEl) {
+				lastClearedEl.textContent = date.toLocaleTimeString();
+			}
+
+			refreshTable();
+			refreshStats();
+
+		} catch (err) {
+			console.error(err);
+			alert("Error");
+		} finally {
+			btn.disabled = false;
+			btn.innerHTML = '<i class="bi bi-trash3"></i>';
+		}
+	}
 	function formatJsonBlocks() {
 	    const blocks = document.querySelectorAll(".format-json");
 
@@ -158,6 +194,9 @@
         if (btn) {
             btn.addEventListener("click", toggleRefresh);
         }
+		
+		document.getElementById("clearMemoryBtn")
+		    ?.addEventListener("click", clearMemoryStore);
     }
 	
 	function bindDetailButtons() {

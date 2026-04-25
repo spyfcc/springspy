@@ -9,6 +9,8 @@ public class MemoryStore {
 
     private final int maxSize;
     private final LinkedList<TrafficEvent> cache = new LinkedList<>();
+    private long lastClearedAt = System.currentTimeMillis();
+    
 
     public MemoryStore(int maxSize) {
         this.maxSize = maxSize;
@@ -28,5 +30,14 @@ public class MemoryStore {
 
     public synchronized List<TrafficEvent> list() {
         return new LinkedList<>(cache);
+    }
+    
+    public synchronized void clear() {
+    	lastClearedAt = System.currentTimeMillis();
+    	cache.clear();
+    }
+    
+    public long getLastClearedAt() {
+        return lastClearedAt;
     }
 }
