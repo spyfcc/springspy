@@ -24,7 +24,12 @@ public class SpyCsvExporter {
                     .append(escape(e.getResponseBody())).append("\n");
         }
 
-        return csv.toString().getBytes(StandardCharsets.UTF_8);
+        byte[] bom = new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
+        byte[] content = csv.toString().getBytes(StandardCharsets.UTF_8);
+        byte[] result = new byte[bom.length + content.length];
+        System.arraycopy(bom, 0, result, 0, bom.length);
+        System.arraycopy(content, 0, result, bom.length, content.length);
+        return result;
     }
 
     private static String escape(String value) {
