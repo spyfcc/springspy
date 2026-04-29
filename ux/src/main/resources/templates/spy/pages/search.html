@@ -101,7 +101,14 @@
 							</button>
 
 							<a th:href="${trafficSpyUiPath + '/search'}"
-								class="btn btn-outline-light"> Clean </a>
+							   class="btn btn-outline-light"> Clean </a>
+
+							<button type="submit"
+									th:formaction="${trafficSpyUiPath + '/export/csv'}"
+									class="btn btn-outline-success"
+									th:disabled="${result == null or result.content == null or #lists.isEmpty(result.content)}">
+								<i class="bi bi-download me-1"></i>Export CSV
+							</button>
 						</div>
 
 					</div>
