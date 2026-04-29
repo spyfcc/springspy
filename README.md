@@ -58,7 +58,7 @@ SpringSpy is available on Maven Central:
 <dependency>
     <groupId>io.github.spyfcc</groupId>
     <artifactId>spyfcc-starter3</artifactId>
-    <version>1.1.0-RC1</version>
+    <version>1.1.0-RC3</version>
 </dependency>
 ```
 
@@ -68,7 +68,7 @@ SpringSpy is available on Maven Central:
 <dependency>
     <groupId>io.github.spyfcc</groupId>
     <artifactId>spyfcc-starter2</artifactId>
-    <version>1.1.0-RC1</version>
+    <version>1.1.0-RC3</version>
 </dependency>
 ```
 
@@ -85,19 +85,19 @@ SpringSpy is available on Maven Central:
   <dependency>
       <groupId>io.github.spyfcc</groupId>
       <artifactId>spyfcc-starter2</artifactId>
-      <version>1.1.0-RC1</version>
+      <version>1.1.0-RC3</version>
   </dependency>
 <!-- For Spring Boot 3 -->
   <dependency>
     <groupId>io.github.spyfcc</groupId>
     <artifactId>spyfcc-starter3</artifactId>
-    <version>1.1.0-RC1</version>
+    <version>1.1.0-RC3</version>
   </dependency>  
 <!-- Optional MongoDB storage module -->
   <dependency>
 	  <groupId>io.github.spyfcc</groupId>
 	  <artifactId>spyfcc-nosql</artifactId>
-	  <version>1.1.0-RC1</version>
+	  <version>1.1.0-RC3</version>
   </dependency> 
 <!-- Required only when using MongoDB storage -->  
   <dependency>
@@ -130,13 +130,13 @@ SpyFCC supports JDBC-based storage for relational databases.
   <dependency>
       <groupId>io.github.spyfcc</groupId>
       <artifactId>spyfcc-starter2</artifactId>
-      <version>1.1.0-RC1</version>
+      <version>1.1.0-RC3</version>
   </dependency>
 <!-- For Spring Boot 3 -->
   <dependency>
     <groupId>io.github.spyfcc</groupId>
     <artifactId>spyfcc-starter3</artifactId>
-    <version>1.1.0-RC1</version>
+    <version>1.1.0-RC3</version>
   </dependency>  
 ```
 Make sure your project includes a JDBC driver (PostgreSQL, MySQL, etc.)

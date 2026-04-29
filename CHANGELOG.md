@@ -45,3 +45,16 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - Legacy search configuration (`SpySearchConfig`)
 - File-based search service abstraction
+
+## [1.1.0-RC2] - 2026-04-29
+
+### Changed
+- root pom.xml changed and maven central deploy
+
+
+## [1.1.0-RC3] - 2026-04-29
+
+
+### Changed
+- root pom.xml changed and maven central deploy
+

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.spyfcc</groupId>
 		<artifactId>springspy</artifactId>
-		<version>1.1.0-RC1</version>
+		<version>1.1.0-RC3</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>spyfcc-starter3</artifactId>

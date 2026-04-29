@@ -1,204 +1,206 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.spyfcc</groupId>
-    <artifactId>springspy</artifactId>
-    <version>1.1.0-RC1</version>
-    <packaging>pom</packaging>
+	<groupId>io.github.spyfcc</groupId>
+	<artifactId>springspy</artifactId>
+	<version>1.1.0-RC3</version>
+	<packaging>pom</packaging>
 
-    <name>SpringSpy</name>
-    <description>HTTP traffic inspection library for Spring Boot applications with built-in UI</description>
-    <url>https://github.com/spyfcc/springspy</url>
+	<name>SpringSpy</name>
+	<description>HTTP traffic inspection and monitoring library for Spring Boot	applications with built-in UI, search, and storage support (file, JDBC,	NoSQL).</description>
+	<url>https://github.com/spyfcc/springspy</url>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-    <developers>
-        <developer>
-            <id>fatihcan</id>
-            <name>Fatih Can</name>
-            <email>developer@spyfcc.com</email>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<id>fatihcan</id>
+			<name>Fatih Can</name>
+			<email>developer@spyfcc.com</email>
+		</developer>
+	</developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/spyfcc/springspy.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/spyfcc/springspy.git</developerConnection>
-        <url>https://github.com/spyfcc/springspy</url>
-        <tag>HEAD</tag>
-    </scm>
+	<organization>
+		<name>SpyFCC</name>
+		<url>https://www.spyfcc.com</url>
+	</organization>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<scm>
+		<connection>scm:git:https://github.com/spyfcc/springspy.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/spyfcc/springspy.git</developerConnection>
+		<url>https://github.com/spyfcc/springspy</url>
+		<tag>v1.1.0-RC3</tag>
+	</scm>
 
-        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
-        <maven.source.plugin.version>3.3.0</maven.source.plugin.version>
-        <maven.javadoc.plugin.version>3.6.3</maven.javadoc.plugin.version>
-        <maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
-        <maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
-        <central.publishing.plugin.version>0.9.0</central.publishing.plugin.version>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <modules>
-        <module>core</module>
-        <module>starter2</module>
-        <module>starter3</module>
-        <module>ux</module>
-        <module>nosql</module>
-    </modules>
+		<maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+		<maven.source.plugin.version>3.3.0</maven.source.plugin.version>
+		<maven.javadoc.plugin.version>3.6.3</maven.javadoc.plugin.version>
+		<maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
+		<maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
+		<central.publishing.plugin.version>0.9.0</central.publishing.plugin.version>
+	</properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.github.spyfcc</groupId>
-                <artifactId>spyfcc-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.spyfcc</groupId>
-                <artifactId>spyfcc-starter2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.spyfcc</groupId>
-                <artifactId>spyfcc-starter3</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.spyfcc</groupId>
-                <artifactId>spyfcc-nosql</artifactId>
-                <version>${project.version}</version>
-            </dependency>            
-            <dependency>
-                <groupId>io.github.spyfcc</groupId>
-                <artifactId>spyfcc-ux</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<modules>
+		<module>core</module>
+		<module>starter2</module>
+		<module>starter3</module>
+		<module>ux</module>
+		<module>nosql</module>
+	</modules>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.plugin.version}</version>
-                </plugin>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.github.spyfcc</groupId>
+				<artifactId>spyfcc-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.spyfcc</groupId>
+				<artifactId>spyfcc-starter2</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.spyfcc</groupId>
+				<artifactId>spyfcc-starter3</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.spyfcc</groupId>
+				<artifactId>spyfcc-nosql</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.spyfcc</groupId>
+				<artifactId>spyfcc-ux</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven.source.plugin.version}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven.javadoc.plugin.version}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven.gpg.plugin.version}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven.deploy.plugin.version}</version>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.sonatype.central</groupId>
-                    <artifactId>central-publishing-maven-plugin</artifactId>
-                    <version>${central.publishing.plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
+<build>
+    <pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven.gpg.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.plugin.version}</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <inherited>false</inherited>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <autoPublish>false</autoPublish>
-                    <waitUntil>validated</waitUntil>
-                </configuration>
+                <version>${central.publishing.plugin.version}</version>
             </plugin>
         </plugins>
-    </build>
+    </pluginManagement>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+    <plugins>
+        <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central.publishing.plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+                <publishingServerId>central</publishingServerId>
+                <autoPublish>false</autoPublish>
+                <waitUntil>validated</waitUntil>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <doclint>none</doclint>
-                            <detectOfflineLinks>false</detectOfflineLinks>
-                            <encoding>UTF-8</encoding>
-                        </configuration>
-                    </plugin>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<failOnError>false</failOnError>
+							<doclint>none</doclint>
+							<detectOfflineLinks>false</detectOfflineLinks>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
